@@ -1,0 +1,34 @@
+{
+  "cli": {
+    "version": ">= 20.0.0",
+    "appVersionSource": "local"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal",
+      "ios": {
+        "simulator": true
+      }
+    },
+    "preview": {
+      "distribution": "internal"
+    },
+    "production": {
+      "autoIncrement": true
+    }
+  },
+  "submit": {
+    "production": {
+      "ios": {
+        "appleId": "bs720japan@gmail.com",
+        "ascAppId": "6787580388",
+        "appleTeamId": "569A95P74A"
+      },
+      "android": {
+        "track": "internal",
+        "releaseStatus": "completed"
+      }
+    }
+  }
+}

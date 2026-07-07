@@ -1,0 +1,5 @@
+{
+  "NSPhotoLibraryUsageDescription": "Used to attach photos and videos to your setting records",
+  "NSCameraUsageDescription": "Used to take photos for your setting records",
+  "NSMicrophoneUsageDescription": "Used for audio recording when capturing video"
+}

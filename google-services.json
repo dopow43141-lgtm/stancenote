@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "182921395326",
+    "project_id": "stancenote",
+    "storage_bucket": "stancenote.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:182921395326:android:66adda29c5ef80f42e2c2f",
+        "android_client_info": {
+          "package_name": "com.takahei.stancenote"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDEZTrWSN3qUM_IoYz8_91NtZbDMWZ9NEk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

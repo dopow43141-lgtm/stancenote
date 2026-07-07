@@ -1,27 +1,40 @@
 {
   "expo": {
     "name": "StanceNote",
-    "slug": "StanceNote",
+    "slug": "stancenote",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/images/icon.png",
     "scheme": "stancenote",
     "userInterfaceStyle": "automatic",
     "ios": {
-      "icon": "./assets/expo.icon"
+      "icon": "./assets/expo.icon",
+      "bundleIdentifier": "com.takahei.stancenote",
+      "infoPlist": {
+        "ITSAppUsesNonExemptEncryption": false
+      },
+      "buildNumber": "12",
+      "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
+      "package": "com.takahei.stancenote",
+      "versionCode": 9,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",
         "backgroundImage": "./assets/images/android-icon-background.png",
         "monochromeImage": "./assets/images/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "googleServicesFile": "./google-services.json"
     },
     "web": {
       "output": "static",
       "favicon": "./assets/images/favicon.png"
+    },
+    "locales": {
+      "ja": "./locales/ja.json",
+      "en": "./locales/en.json"
     },
     "plugins": [
       "expo-router",
@@ -30,13 +43,33 @@
         {
           "backgroundColor": "#208AEF",
           "image": "./assets/images/splash-icon.png",
-          "imageWidth": 76
+          "imageWidth": 200
         }
-      ]
+      ],
+      "expo-video",
+      "expo-localization",
+      "@react-native-firebase/app",
+      "@react-native-firebase/analytics",
+      "@react-native-firebase/crashlytics",
+      [
+        "expo-build-properties",
+        {
+          "ios": {
+            "useFrameworks": "static"
+          }
+        }
+      ],
+      "./plugins/disable-lint"
     ],
     "experiments": {
-      "typedRoutes": true,
-      "reactCompiler": true
-    }
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "8bdf6a93-3b3d-427a-91fa-03219b84ff6c"
+      }
+    },
+    "owner": "takahei"
   }
 }
