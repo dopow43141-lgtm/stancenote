@@ -157,16 +157,24 @@ function ImagePage({ uri }: { uri: string }) {
 
 function VideoPage({ uri }: { uri: string }) {
   const player = useVideoPlayer(uri, (p) => {
-    p.loop = false;
+    p.loop = true;
   });
 
   return (
     <View style={styles.page}>
-      <VideoView
-        player={player}
-        style={styles.fullVideo}
-        allowsPictureInPicture={false}
-      />
+      <Pressable onPress={() => {
+        if (player.playing) {
+          player.pause();
+        } else {
+          player.play();
+        }
+      }}>
+        <VideoView
+          player={player}
+          style={styles.fullVideo}
+          nativeControls
+        />
+      </Pressable>
     </View>
   );
 }

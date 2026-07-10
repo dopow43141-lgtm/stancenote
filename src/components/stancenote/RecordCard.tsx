@@ -25,10 +25,11 @@ export function RecordCard({
   const boardLabel = [record.boardBrand, record.boardModel].filter(Boolean).join(' ');
   const bindingLabel = [record.bindingBrand, record.bindingModel].filter(Boolean).join(' ');
   const equipmentParts = [boardLabel, bindingLabel].filter(Boolean);
-  const setPositionLabel = record.setbackCm > 0
-    ? `${t('detail.setback', { cm: record.setbackCm })}`
-    : record.setbackCm < 0
-      ? `${t('detail.setfront', { cm: Math.abs(record.setbackCm) })}`
+  const sb = record.setbackCm ?? 0;
+  const setPositionLabel = sb > 0
+    ? t('detail.setback', { cm: sb })
+    : sb < 0
+      ? t('detail.setfront', { cm: Math.abs(sb) })
       : t('detail.center');
 
   return (
