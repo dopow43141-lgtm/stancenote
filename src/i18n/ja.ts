@@ -88,8 +88,8 @@ export default {
   // My Page
   mypage: {
     title: 'マイページ',
-    myBoard: 'マイボード',
-    myBinding: 'マイバインディング',
+    myBoard: 'スノーボード',
+    myBinding: 'バインディング',
     brand: 'ブランド',
     model: 'モデル',
     size: 'サイズ',

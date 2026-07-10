@@ -13,12 +13,12 @@
       "infoPlist": {
         "ITSAppUsesNonExemptEncryption": false
       },
-      "buildNumber": "13",
+      "buildNumber": "14",
       "googleServicesFile": "./GoogleService-Info.plist"
     },
     "android": {
       "package": "com.takahei.stancenote",
-      "versionCode": 10,
+      "versionCode": 12,
       "adaptiveIcon": {
         "backgroundColor": "#E6F4FE",
         "foregroundImage": "./assets/images/android-icon-foreground.png",

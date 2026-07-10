@@ -88,8 +88,8 @@ export default {
   // My Page
   mypage: {
     title: 'My Page',
-    myBoard: 'My Boards',
-    myBinding: 'My Bindings',
+    myBoard: 'Snowboards',
+    myBinding: 'Bindings',
     brand: 'Brand',
     model: 'Model',
     size: 'Size',
