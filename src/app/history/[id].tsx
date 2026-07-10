@@ -4,6 +4,7 @@ import { useCallback, useState } from 'react';
 import { Alert, Pressable, ScrollView, Share, StyleSheet, View } from 'react-native';
 import { router, useFocusEffect, useLocalSearchParams } from 'expo-router';
 
+import { MediaViewer } from '@/components/stancenote/MediaViewer';
 import { ScreenScrollView } from '@/components/stancenote/ScreenScrollView';
 import { SettingForm } from '@/components/stancenote/SettingForm';
 import { StarRating } from '@/components/stancenote/StarRating';
@@ -27,6 +28,7 @@ export default function RecordDetailScreen() {
   const [boards, setBoards] = useState<BoardProfile[]>([]);
   const [bindings, setBindings] = useState<BindingProfile[]>([]);
   const [editing, setEditing] = useState(false);
+  const [viewerIndex, setViewerIndex] = useState(-1);
 
   useFocusEffect(
     useCallback(() => {
@@ -99,27 +101,42 @@ export default function RecordDetailScreen() {
     .join(' ');
   const bindingLabel = [record.bindingBrand, record.bindingModel].filter(Boolean).join(' ');
   const date = new Date(record.createdAt);
+  const allMedia = record.mediaUris ?? (record.photoUri ? [record.photoUri] : []);
 
   return (
     <ScreenScrollView includeTabBarInset={false}>
       <View style={styles.headerRow}>
-        <ThemedText type="subtitle">{Array.isArray(record.ridingStyle) ? record.ridingStyle.map(ridingStyleLabel).join('・') : ridingStyleLabel(record.ridingStyle)}</ThemedText>
+        <View style={styles.headerTitle}>
+          <ThemedText type="subtitle">{record.title || t('card.noTitle')}</ThemedText>
+        </View>
         <ThemedText type="small" themeColor="textSecondary">
           {date.toLocaleDateString('ja-JP')}
         </ThemedText>
       </View>
 
-      {(record.mediaUris ?? (record.photoUri ? [record.photoUri] : [])).length > 0 && (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.mediaScroll}>
-          {(record.mediaUris ?? (record.photoUri ? [record.photoUri] : [])).map((uri) => {
-            const isVideo = /\.(mov|mp4|avi|m4v)$/i.test(uri) || uri.includes('video');
-            return isVideo ? (
-              <VideoThumbnail key={uri} uri={uri} />
-            ) : (
-              <Image key={uri} source={{ uri }} style={styles.mediaItem} />
-            );
-          })}
-        </ScrollView>
+      {allMedia.length > 0 && (
+        <>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} style={styles.mediaScroll}>
+            {allMedia.map((uri, index) => {
+              const isVideo = /\.(mov|mp4|avi|m4v)$/i.test(uri) || uri.includes('video');
+              return (
+                <Pressable key={uri} onPress={() => setViewerIndex(index)}>
+                  {isVideo ? (
+                    <VideoThumbnail uri={uri} />
+                  ) : (
+                    <Image source={{ uri }} style={styles.mediaItem} />
+                  )}
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+          <MediaViewer
+            uris={allMedia}
+            initialIndex={viewerIndex >= 0 ? viewerIndex : 0}
+            visible={viewerIndex >= 0}
+            onClose={() => setViewerIndex(-1)}
+          />
+        </>
       )}
 
       <DetailRow label={t('detail.stance')} value={stanceTypeLabel(record.stance)} />
@@ -207,6 +224,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    gap: Spacing.two,
+  },
+  headerTitle: {
+    flex: 1,
   },
   mediaScroll: {
     marginHorizontal: -Spacing.four,

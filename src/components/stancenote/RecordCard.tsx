@@ -6,7 +6,7 @@ import { ThemedText } from '@/components/themed-text';
 import { ThemedView } from '@/components/themed-view';
 import { Spacing } from '@/constants/theme';
 import { t } from '@/i18n';
-import { ridingStyleLabel, SettingRecord } from '@/types/setting';
+import { stanceTypeLabel, SettingRecord } from '@/types/setting';
 
 export function RecordCard({
   record,
@@ -20,8 +20,16 @@ export function RecordCard({
   selected?: boolean;
 }) {
   const date = new Date(record.createdAt);
-  const dateLabel = `${date.getMonth() + 1}/${date.getDate()}`;
+  const dateLabel = date.toLocaleDateString('ja-JP', { year: 'numeric', month: 'short', day: 'numeric' });
+  const titleLabel = record.title || t('card.noTitle');
   const boardLabel = [record.boardBrand, record.boardModel].filter(Boolean).join(' ');
+  const bindingLabel = [record.bindingBrand, record.bindingModel].filter(Boolean).join(' ');
+  const equipmentParts = [boardLabel, bindingLabel].filter(Boolean);
+  const setPositionLabel = record.setbackCm > 0
+    ? `${t('detail.setback', { cm: record.setbackCm })}`
+    : record.setbackCm < 0
+      ? `${t('detail.setfront', { cm: Math.abs(record.setbackCm) })}`
+      : t('detail.center');
 
   return (
     <Pressable onPress={onPress} style={({ pressed }) => pressed && styles.pressed}>
@@ -40,19 +48,24 @@ export function RecordCard({
         )}
         <View style={styles.info}>
           <View style={styles.headerRow}>
-            <ThemedText type="smallBold">{Array.isArray(record.ridingStyle) ? record.ridingStyle.map(ridingStyleLabel).join('・') : ridingStyleLabel(record.ridingStyle)}</ThemedText>
+            <ThemedText type="smallBold" numberOfLines={1} style={styles.titleText}>
+              {titleLabel}
+            </ThemedText>
             <ThemedText type="small" themeColor="textSecondary">
               {dateLabel}
             </ThemedText>
           </View>
-          <ThemedText type="small" themeColor="textSecondary">
-            {t('card.stance')}{record.stanceWidthCm}cm ／ {t('card.front')}{record.frontAngleDeg}° {t('card.rear')}{record.rearAngleDeg}°
-          </ThemedText>
-          {boardLabel !== '' && (
-            <ThemedText type="small" themeColor="textSecondary">
-              {boardLabel}
+          {equipmentParts.length > 0 && (
+            <ThemedText type="small" themeColor="textSecondary" numberOfLines={1}>
+              {equipmentParts.join(' ／ ')}
             </ThemedText>
           )}
+          <ThemedText type="small" themeColor="textSecondary">
+            {stanceTypeLabel(record.stance)} {record.stanceWidthCm}cm ／ {t('card.front')}{record.frontAngleDeg}° {t('card.rear')}{record.rearAngleDeg}°
+          </ThemedText>
+          <ThemedText type="small" themeColor="textSecondary">
+            {setPositionLabel}
+          </ThemedText>
         </View>
       </ThemedView>
     </Pressable>
@@ -77,5 +90,10 @@ const styles = StyleSheet.create({
   headerRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: Spacing.two,
+  },
+  titleText: {
+    flex: 1,
   },
 });

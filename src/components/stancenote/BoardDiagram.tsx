@@ -108,7 +108,7 @@ export function BoardDiagram({
   const rearLastAngle = useSharedValue(0);
 
   function commit() {
-    const stanceWidthCm = Math.round(vRear.value - vFront.value);
+    const stanceWidthCm = roundTo(vRear.value - vFront.value, 0.5);
     const setbackCm = roundTo((vFront.value + vRear.value) / 2, SETBACK_STEP_CM);
     onChange({
       ...value,
@@ -251,7 +251,7 @@ export function BoardDiagram({
   }));
 
   function adjustStanceWidth(delta: number) {
-    const newWidth = Math.min(Math.max(value.stanceWidthCm + delta, MIN_STANCE_CM), MAX_STANCE_CM);
+    const newWidth = Math.min(Math.max(roundTo(value.stanceWidthCm + delta, 0.5), MIN_STANCE_CM), MAX_STANCE_CM);
     onChange({ ...value, stanceWidthCm: newWidth });
     const half = newWidth / 2;
     vFront.value = value.setbackCm - half;
@@ -414,8 +414,8 @@ export function BoardDiagram({
           <StepperRow
             label={t('diagram.stanceWidth')}
             value={`${value.stanceWidthCm}cm`}
-            onDecrement={() => adjustStanceWidth(-1)}
-            onIncrement={() => adjustStanceWidth(1)}
+            onDecrement={() => adjustStanceWidth(-0.5)}
+            onIncrement={() => adjustStanceWidth(0.5)}
             theme={theme}
           />
           <StepperRow

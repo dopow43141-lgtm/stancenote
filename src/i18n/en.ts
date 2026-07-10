@@ -20,6 +20,15 @@ export default {
     submit: 'Save Record',
   },
 
+  // Search & Sort
+  search: {
+    placeholder: 'Search by title, board, resort',
+    sortDate: 'Date',
+    sortStyle: 'Style',
+    sortBoard: 'Board',
+    sortResort: 'Resort',
+  },
+
   // History screen
   history: {
     title: 'History',
@@ -96,6 +105,8 @@ export default {
 
   // Setting Form
   form: {
+    title: 'Title',
+    titlePlaceholder: 'e.g. Powder day @ Whistler',
     ridingStyle: 'Riding Style',
     ridingStyleError: 'Please select a riding style',
     memoError: 'Please enter a memo',
@@ -138,6 +149,7 @@ export default {
     stance: 'Stance',
     front: 'F',
     rear: 'R',
+    noTitle: 'Untitled',
   },
 
   // Riding styles

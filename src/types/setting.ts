@@ -38,6 +38,7 @@ export function stanceTypeLabel(style: StanceType): string {
 export type SettingRecord = {
   id: string;
   createdAt: string;
+  title?: string;
   stanceWidthCm: number;
   frontAngleDeg: number;
   rearAngleDeg: number;

@@ -30,6 +30,7 @@ export function SettingForm({
 }) {
   const theme = useTheme();
 
+  const [title, setTitle] = useState(initialValue?.title ?? '');
   const [diagramValue, setDiagramValue] = useState<BoardDiagramValue>({
     stanceWidthCm: initialValue?.stanceWidthCm ?? 46,
     setbackCm: initialValue?.setbackCm ?? 0,
@@ -78,19 +79,11 @@ export function SettingForm({
   }
 
   async function handleSubmit() {
-    if (ridingStyles.length === 0) {
-      setError(t('form.ridingStyleError'));
-      return;
-    }
-    if (!memo.trim()) {
-      setError(t('form.memoError'));
-      return;
-    }
-
     setError(undefined);
     setSubmitting(true);
     try {
       await onSubmit({
+        title: title.trim() || undefined,
         stanceWidthCm: diagramValue.stanceWidthCm,
         frontAngleDeg: diagramValue.frontAngleDeg,
         rearAngleDeg: diagramValue.rearAngleDeg,
@@ -118,9 +111,19 @@ export function SettingForm({
 
   return (
     <View style={styles.form}>
+      <Field label={t('form.title')}>
+        <TextInput
+          value={title}
+          onChangeText={setTitle}
+          placeholder={t('form.titlePlaceholder')}
+          placeholderTextColor={theme.textSecondary}
+          style={inputStyle}
+        />
+      </Field>
+
       <BoardDiagram value={diagramValue} onChange={setDiagramValue} />
 
-      <Field label={t('form.ridingStyle')} required>
+      <Field label={t('form.ridingStyle')}>
         <View style={styles.chipRow}>
           {RIDING_STYLES.map((style) => (
             <Chip
@@ -135,18 +138,6 @@ export function SettingForm({
             />
           ))}
         </View>
-      </Field>
-
-      <Field label={t('form.reviewLabel')} required>
-        <TextInput
-          value={memo}
-          onChangeText={setMemo}
-          placeholder={t('form.memoPlaceholder')}
-          placeholderTextColor={theme.textSecondary}
-          multiline
-          numberOfLines={3}
-          style={[inputStyle, styles.multiline]}
-        />
       </Field>
 
       <ThemedText type="smallBold" style={styles.sectionTitle}>
@@ -275,6 +266,18 @@ export function SettingForm({
           </Field>
         </View>
       </View>
+
+      <Field label={t('form.reviewLabel')}>
+        <TextInput
+          value={memo}
+          onChangeText={setMemo}
+          placeholder={t('form.memoPlaceholder')}
+          placeholderTextColor={theme.textSecondary}
+          multiline
+          numberOfLines={3}
+          style={[inputStyle, styles.multiline]}
+        />
+      </Field>
 
       {error && (
         <ThemedText type="small" themeColor="text" style={styles.error}>

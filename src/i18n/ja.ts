@@ -20,6 +20,15 @@ export default {
     submit: '記録する',
   },
 
+  // Search & Sort
+  search: {
+    placeholder: 'タイトル・板・スキー場で検索',
+    sortDate: '日付',
+    sortStyle: 'スタイル',
+    sortBoard: '板',
+    sortResort: 'スキー場',
+  },
+
   // History screen
   history: {
     title: '履歴',
@@ -96,6 +105,8 @@ export default {
 
   // Setting Form
   form: {
+    title: 'タイトル',
+    titlePlaceholder: '例：パウダーデイ＠ニセコ',
     ridingStyle: 'ライディングスタイル',
     ridingStyleError: 'ライディングスタイルを選択してください',
     memoError: 'メモを入力してください',
@@ -138,6 +149,7 @@ export default {
     stance: 'スタンス',
     front: '前',
     rear: '後',
+    noTitle: '無題',
   },
 
   // Riding styles
