@@ -167,4 +167,19 @@ export default {
     regular: 'レギュラー',
     goofy: 'グーフィー',
   },
+
+  // Onboarding
+  onboarding: {
+    skip: 'スキップ',
+    next: '次へ',
+    getStarted: 'はじめる',
+    welcomeTitle: 'StanceNoteへようこそ',
+    welcomeDesc: 'スノーボードのセッティングを記録・比較して、\n自分だけのベストセッティングを見つけよう',
+    registerTitle: 'まずはボードを登録',
+    registerDesc: 'マイページでボードとバインディングを登録すると、\n記録するときにワンタップで選べて楽になります',
+    recordTitle: 'セッティングを記録',
+    recordDesc: 'スタンス幅・角度・セットバックを\nダイアグラムで直感的に記録。\n写真やメモも一緒に残せます',
+    startTitle: 'さあ、始めよう！',
+    startDesc: 'まずはマイページで\nボードとバインディングを\n登録してみましょう',
+  },
 } as const;

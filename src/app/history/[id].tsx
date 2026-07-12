@@ -184,7 +184,9 @@ export default function RecordDetailScreen() {
 function VideoThumbnail({ uri }: { uri: string }) {
   const player = useVideoPlayer(uri);
   return (
-    <VideoView player={player} style={styles.mediaItem} />
+    <View pointerEvents="none">
+      <VideoView player={player} style={styles.mediaItem} nativeControls={false} />
+    </View>
   );
 }
 

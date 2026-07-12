@@ -167,4 +167,19 @@ export default {
     regular: 'Regular',
     goofy: 'Goofy',
   },
+
+  // Onboarding
+  onboarding: {
+    skip: 'Skip',
+    next: 'Next',
+    getStarted: 'Get Started',
+    welcomeTitle: 'Welcome to StanceNote',
+    welcomeDesc: 'Record and compare your\nsnowboard settings to find\nyour perfect setup',
+    registerTitle: 'Register Your Board',
+    registerDesc: 'Add your board and bindings\nin My Page for quick selection\nwhen recording settings',
+    recordTitle: 'Record Your Setup',
+    recordDesc: 'Intuitively record stance width,\nangles, and setback with\nthe visual diagram',
+    startTitle: "Let's Go!",
+    startDesc: "Start by registering your board\nand bindings in My Page",
+  },
 } as const;
