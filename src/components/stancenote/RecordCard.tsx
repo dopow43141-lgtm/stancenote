@@ -1,3 +1,4 @@
+import { Image } from 'expo-image';
 import { Pressable, StyleSheet, View } from 'react-native';
 
 import { SymbolView } from 'expo-symbols';
@@ -26,6 +27,9 @@ export function RecordCard({
   const bindingLabel = [record.bindingBrand, record.bindingModel].filter(Boolean).join(' ');
   const equipmentParts = [boardLabel, bindingLabel].filter(Boolean);
   const sb = record.setbackCm ?? 0;
+  const allMedia = record.mediaUris ?? (record.photoUri ? [record.photoUri] : []);
+  const thumbnailUri = allMedia.find((uri) => !/\.(mov|mp4|avi|m4v)$/i.test(uri) && !uri.includes('video'))
+    ?? (allMedia.length > 0 ? allMedia[0] : undefined);
   const setPositionLabel = sb > 0
     ? t('detail.setback', { cm: sb })
     : sb < 0
@@ -68,6 +72,9 @@ export function RecordCard({
             {setPositionLabel}
           </ThemedText>
         </View>
+        {thumbnailUri && (
+          <Image source={{ uri: thumbnailUri }} style={styles.thumbnail} contentFit="cover" />
+        )}
       </ThemedView>
     </Pressable>
   );
@@ -96,5 +103,10 @@ const styles = StyleSheet.create({
   },
   titleText: {
     flex: 1,
+  },
+  thumbnail: {
+    width: 56,
+    height: 56,
+    borderRadius: Spacing.two,
   },
 });

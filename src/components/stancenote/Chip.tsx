@@ -15,11 +15,19 @@ export function Chip({
 }) {
   return (
     <Pressable onPress={onPress} style={({ pressed }) => pressed && styles.pressed}>
-      <ThemedView type={selected ? 'backgroundSelected' : 'backgroundElement'} style={styles.chip}>
-        <ThemedText type="small" themeColor={selected ? 'text' : 'textSecondary'}>
-          {label}
-        </ThemedText>
-      </ThemedView>
+      {selected ? (
+        <ThemedView style={[styles.chip, styles.chipSelected]}>
+          <ThemedText type="small" style={styles.selectedText}>
+            {label}
+          </ThemedText>
+        </ThemedView>
+      ) : (
+        <ThemedView type="backgroundElement" style={styles.chip}>
+          <ThemedText type="small" themeColor="textSecondary">
+            {label}
+          </ThemedText>
+        </ThemedView>
+      )}
     </Pressable>
   );
 }
@@ -32,5 +40,11 @@ const styles = StyleSheet.create({
     paddingVertical: Spacing.one,
     paddingHorizontal: Spacing.three,
     borderRadius: Spacing.four,
+  },
+  chipSelected: {
+    backgroundColor: '#208AEF',
+  },
+  selectedText: {
+    color: '#FFFFFF',
   },
 });
